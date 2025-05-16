@@ -1,56 +1,99 @@
-//imports
+import javax.swing.*;
+import java.awt.event.*;
+import java.io.*;
 
-import java.io.File;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.swing.JOptionPane
+public class Customize {
+    public static void main(String[] args) {
+        // Create frame
+        JFrame frame = new JFrame("Customer Registration");
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);
 
-public class Customize {    
+        // Name field
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setBounds(30, 30, 100, 25);
+        frame.add(nameLabel);
+        JTextField nameField = new JTextField();
+        nameField.setBounds(150, 30, 200, 25);
+        frame.add(nameField);
 
-//declaring variables    
+        // Customer number
+        JLabel numberLabel = new JLabel("Customer Number:");
+        numberLabel.setBounds(30, 70, 120, 25);
+        frame.add(numberLabel);
+        JTextField numberField = new JTextField();
+        numberField.setBounds(150, 70, 200, 25);
+        frame.add(numberField);
 
-String Name;    
-double Amountpaid;    
-int Customernumber;    
-String Dateofbirth;     
-char Sex;            
+        // Date of Birth
+        JLabel dobLabel = new JLabel("Date of Birth:");
+        dobLabel.setBounds(30, 110, 100, 25);
+        frame.add(dobLabel);
+        JTextField dobField = new JTextField();
+        dobField.setBounds(150, 110, 200, 25);
+        frame.add(dobField);
 
-//setting main method            
+        // Amount Paid
+        JLabel amountLabel = new JLabel("Amount Paid:");
+        amountLabel.setBounds(30, 150, 100, 25);
+        frame.add(amountLabel);
+        JTextField amountField = new JTextField();
+        amountField.setBounds(150, 150, 200, 25);
+        frame.add(amountField);
 
-public static void main(String[] args) throws IOException             {                                                       
-//creating array of variables
+        // Sex
+        JLabel sexLabel = new JLabel("Sex (M/F):");
+        sexLabel.setBounds(30, 190, 100, 25);
+        frame.add(sexLabel);
+        JTextField sexField = new JTextField();
+        sexField.setBounds(150, 190, 200, 25);
+        frame.add(sexField);
 
-                      Customize[] Customize = new Customize[10];                                
+        // Save button
+        JButton saveButton = new JButton("Save");
+        saveButton.setBounds(70, 250, 100, 30);
+        frame.add(saveButton);
 
-for(int i =0; i<Customize.length; i++){                
+        // Login button
+        JButton loginButton = new JButton("Login");
+        loginButton.setBounds(220, 250, 100, 30);
+        frame.add(loginButton);
 
-// input screen GUI
+        // Save button logic
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String number = numberField.getText();
+                String dob = dobField.getText();
+                String amount = amountField.getText();
+                String sex = sexField.getText();
 
-String setName = JOptionPane.showInputDialog("Name of Customer");                 
-Customize[i].Name = setName;                 JOptionPane.showMessageDialog(null,setName);                                
+                try {
+                    FileWriter fw = new FileWriter("customer_data.txt", true); // append mode
+                    PrintWriter pw = new PrintWriter(fw);
+                    pw.println("Name: " + name);
+                    pw.println("Customer Number: " + number);
+                    pw.println("Date of Birth: " + dob);
+                    pw.println("Amount Paid: " + amount);
+                    pw.println("Sex: " + sex);
+                    pw.println("--------------------------");
+                    pw.close();
+                    JOptionPane.showMessageDialog(frame, "Data saved to customer_data.txt");
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(frame, "Error saving file: " + ex.getMessage());
+                }
+            }
+        });
 
-String setNum = JOptionPane.showInputDialog("Enter Number");                
+        // Login button logic (placeholder)
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(frame, "Login button clicked (not yet implemented)");
+            }
+        });
 
-Customize[i].Customernumber = Integer.parseInt(setNum);                
-
-JOptionPane.showMessageDialog(null,setNum);                                
-String setDateofbirth =
-
-JOptionPane.showInputDialog("Date of birth:DD MM YYY ");                
-
-Customize[i].Dateofbirth = setDateofbirth;                 JOptionPane.showMessageDialog(null,setDateofbirth);                               
-
-  String setAmountPaid = JOptionPane.showInputDialog("Amoumt paid");                 Customize[i].Amountpaid = Double.parseDouble(setAmountPaid);                 JOptionPane.showMessageDialog(null,setAmountPaid);                               
-
-  String setSex = JOptionPane.showInputDialog("M or F");                 Customize[i].Sex = setSex.charAt(0);                 JOptionPane.showMessageDialog(null,setSex);  }                                              
-
-//outputting inputed data
-
-for(int k=0; k<Customize.length; k++){ System.out.println("customer name" + Customize(k)) System.out.println("Enter number" + Customize(k)) System.out.println("Date of birth:DD MM YYY" + Customize(k)) System.out.println("Amount paid" + Customize(k)) System.out.println("M or F" + Customize(k))                                                                                   }
-
-// saving inputed data as text
-
-File file1 = new File("out.txt");             	 				for (int l=0; l<Customize.length; l++){ 				 				}             	             	file1.close();     }    
+        // Show the form
+        frame.setVisible(true);
+    }
 }
